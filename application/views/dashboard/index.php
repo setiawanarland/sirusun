@@ -6,7 +6,7 @@
 
         <div class="row">
             <div class="col-lg-3 col-sm-6">
-                <a href="<?php base_url('pendapatan/total') ?>">
+                <a href="<?= base_url('main/totalpendapatan') ?>">
                     <div class="card">
                         <div class="stat-widget-two card-body">
                             <div class="stat-content">
