@@ -21,7 +21,7 @@
                 </a>
             </div>
             <div class="col-lg-3 col-sm-6">
-                <a href="/pendapatan/bulan_ini">
+                <a href="<?= base_url('main/pendapatanbulanini') ?>">
                     <div class="card">
                         <div class="stat-widget-two card-body">
                             <div class="stat-content">
@@ -36,7 +36,7 @@
                 </a>
             </div>
             <div class="col-lg-3 col-sm-6">
-                <a href="/pendapatan/bulan_lalu">
+                <a href="<?= base_url('main/pendapatanbulanlalu') ?>">
                     <div class="card">
                         <div class="stat-widget-two card-body">
                             <div class="stat-content">
@@ -51,7 +51,7 @@
                 </a>
             </div>
             <div class="col-lg-3 col-sm-6">
-                <a href="/tunggakan">
+                <a href="<?= base_url('main/tunggakan') ?>">
                     <div class="card">
                         <div class="stat-widget-two card-body">
                             <div class="stat-content">
