@@ -69,7 +69,7 @@
             <!-- /# column -->
         </div>
 
-        <!-- <div class="row">
+        <div class="row">
             <div class="col-lg-12">
                 <div class="card">
                     <div class="card-header">
@@ -100,21 +100,29 @@
                                 </thead>
                                 <tbody>
 
-                                    <?php foreach ($tagihan as $tghn) : ?>
-
+                                    <?php if (count($tagihan) <= 0) : ?>
                                         <tr>
-                                            <td><?= $tghn['nama_penghuni']; ?></td>
-                                            <td><?= $tghn['no_kamar']; ?></td>
-                                            <td><?= rupiah($tghn['harga_lantai']); ?></td>
-
-                                            <?php if ($tghn['is_bayar'] == 1) : ?>
-                                                <td><span class='badge badge-success'><?= ucwords('lunas'); ?></span></td>
-                                            <?php else : ?>
-                                                <td><span class='badge badge-warning'><?= ucwords('belum bayar'); ?></span></td>
-                                            <?php endif; ?>
+                                            <td colspan="4" class="text-center"><em>Tidak ada data dalam bulan ini</em></td>
                                         </tr>
+                                    <?php else : ?>
 
-                                    <?php endforeach; ?>
+                                        <?php foreach ($tagihan as $tghn) : ?>
+
+                                            <tr>
+                                                <td><?= $tghn['nama_penghuni']; ?></td>
+                                                <td><?= $tghn['no_kamar']; ?></td>
+                                                <td><?= rupiah($tghn['harga_lantai']); ?></td>
+
+                                                <?php if ($tghn['is_bayar'] == 1) : ?>
+                                                    <td><span class='badge badge-success'><?= ucwords('lunas'); ?></span></td>
+                                                <?php else : ?>
+                                                    <td><span class='badge badge-warning'><?= ucwords('belum bayar'); ?></span></td>
+                                                <?php endif; ?>
+                                            </tr>
+
+                                        <?php endforeach; ?>
+
+                                    <?php endif; ?>
 
                                 </tbody>
                             </table>
@@ -122,7 +130,7 @@
                     </div>
                 </div>
             </div>
-        </div> -->
+        </div>
 
         <div class="row">
             <div class="col-lg-12">
@@ -133,7 +141,7 @@
                     <div class="card-body">
                         <div class="row">
                             <div class="col-xl-12 col-lg-8">
-                                <div id="chart1"></div>
+                                <div id="chart"></div>
                             </div>
                         </div>
                     </div>

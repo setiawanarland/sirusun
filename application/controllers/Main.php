@@ -48,6 +48,7 @@ class Main extends CI_Controller
 			$data['pendapatan_bulan_lalu'] = $this->rusun->pendapatanRusunByMonthYear($rusun_id, date('m') - 1, date('Y'));
 
 			$data['tahun_pendapatan'] = $this->rusun->tahunPendapatanRusun($rusun_id);
+			$data['tagihan'] = $this->rusun->getTagihanPenghuni($rusun_id, date('m'), date('Y'));
 
 			$this->load->view('templates/header', $data);
 			$this->load->view('templates/sidebar', $data);
