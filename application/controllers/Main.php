@@ -54,22 +54,6 @@ class Main extends CI_Controller
 			$this->load->view('dashboard/index', $data);
 			$this->load->view('templates/footer');
 		}
-		// $data['rusun'] = $this->db->get('rusun')->result_array();
-
-		// $data['total_pendapatan'] = $this->rusun->totalPendapatan(date('Y'));
-		// $data['pendapatan_bulan_ini'] = $this->rusun->pendapatanBulanIni(date('m'), date('Y'));
-		// $data['pendapatan_bulan_lalu'] = $this->rusun->pendapatanBulanLalu(date('m') - 1, date('Y'));
-
-		// $this->db->select('tahun');
-		// $this->db->group_by('tahun');
-		// $data['tahun_pendapatan'] = $this->db->get('pendapatan')->result_array();
-
-		// $data['tagihan'] = $this->rusun->getTagihanPenghuni($data['rusun'][0]['id'], date('m'), date('Y'));
-
-		// $this->load->view('templates/header', $data);
-		// $this->load->view('templates/sidebar', $data);
-		// $this->load->view('dashboard/index', $data);
-		// $this->load->view('templates/footer');
 	}
 
 	public function kamar($rusun_id)
@@ -245,5 +229,10 @@ class Main extends CI_Controller
 		$this->load->view('templates/sidebar', $data);
 		$this->load->view('pendapatan/index', $data);
 		$this->load->view('templates/footer');
+	}
+
+	public function totalpendapatan()
+	{
+		echo 'total';
 	}
 }
