@@ -56,7 +56,7 @@
                         <div class="stat-widget-two card-body">
                             <div class="stat-content">
                                 <div class="stat-text">Jumlah Tunggakan</div>
-                                <div class="stat-digit"><?= rupiah(0); ?></div>
+                                <div class="stat-digit"><?= rupiah($jumlah_tunggakan['jumlah_tunggakan']); ?></div>
                             </div>
                             <div class="progress">
                                 <div class="progress-bar progress-bar-danger w-100" role="progressbar" aria-valuenow="65" aria-valuemin="0" aria-valuemax="100"></div>
@@ -70,6 +70,7 @@
         </div>
 
         <div class="row">
+            <a href="<?= base_url('main/tambahtagihan') ?>" class="btn btn-primary">ok</a>
             <div class="col-lg-12">
                 <div class="card">
                     <div class="card-header">

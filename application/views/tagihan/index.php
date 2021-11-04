@@ -2,6 +2,7 @@
     Content body start
 ***********************************-->
 <div class="content-body">
+    <div class="flashdata" data-flashdata="<?= $this->session->flashdata('flash'); ?>" data-message="<?= $this->session->flashdata('message'); ?>"></div>
     <div class="container-fluid">
         <div class="row">
             <div class="col-lg-12">

@@ -65,28 +65,36 @@
                                     </thead>
                                     <tbody>
 
-
-                                        <?php $i = 1; ?>
-                                        <?php foreach ($penghuni as $pnghn) : ?>
-
+                                        <?php if (count($penghuni) <= 0) : ?>
                                             <tr>
-                                                <th><?= $i; ?></th>
-                                                <td><?= $pnghn['nama_penghuni']; ?></td>
-                                                <td><?= $pnghn['no_kamar']; ?></td>
-                                                <td><?= format_indo($pnghn['tgl_masuk']); ?></td>
-                                                <td>
-                                                    <a href="<?= base_url('assets/images/penghuni/' . $pnghn['kk_penghuni']); ?>" data-lightbox="foto-<?= $pnghn['kk_penghuni'] ?>" data-title="<?= $pnghn['kk_penghuni'] ?>" data-toggle="tooltip" data-placement="top" title="Lihat KK"><i class="fa fa-credit-card btn btn-primary"></i></a>
-                                                    <a href="<?= base_url('assets/images/penghuni/' . $pnghn['ktp_penghuni']); ?>" class="" data-lightbox="foto-<?= $pnghn['ktp_penghuni'] ?>" data-title="<?= $pnghn['ktp_penghuni'] ?>" data-toggle="tooltip" data-placement="top" title="Lihat KTP"><i class="fa fa-id-card btn btn-primary"></i></a>
-                                                </td>
-                                                <td>
-                                                    <a href="<?= base_url('main/penghunicheckout/' . $pnghn['id'] . '/' . $rusun_id); ?>" class="check-out" data-toggle="tooltip" data-placement="top" title="Check Out"><i class="fa fa-sign-out btn btn-danger"></i></a>
-
-
-                                                </td>
+                                                <td colspan="6" class="text-center"><em>Tidak ada data penghuni pada rusun ini</em></td>
                                             </tr>
+                                        <?php else : ?>
 
-                                            <?php $i++; ?>
-                                        <?php endforeach; ?>
+                                            <?php $i = 1; ?>
+                                            <?php foreach ($penghuni as $pnghn) : ?>
+
+                                                <tr>
+                                                    <th><?= $i; ?></th>
+                                                    <td><?= $pnghn['nama_penghuni']; ?></td>
+                                                    <td><?= $pnghn['no_kamar']; ?></td>
+                                                    <td><?= format_indo($pnghn['tgl_masuk']); ?></td>
+                                                    <td>
+                                                        <a href="<?= base_url('assets/images/penghuni/' . $pnghn['kk_penghuni']); ?>" data-lightbox="foto-<?= $pnghn['kk_penghuni'] ?>" data-title="<?= $pnghn['kk_penghuni'] ?>" data-toggle="tooltip" data-placement="top" title="Lihat KK"><i class="fa fa-credit-card btn btn-primary"></i></a>
+                                                        <a href="<?= base_url('assets/images/penghuni/' . $pnghn['ktp_penghuni']); ?>" class="" data-lightbox="foto-<?= $pnghn['ktp_penghuni'] ?>" data-title="<?= $pnghn['ktp_penghuni'] ?>" data-toggle="tooltip" data-placement="top" title="Lihat KTP"><i class="fa fa-id-card btn btn-primary"></i></a>
+                                                    </td>
+                                                    <td>
+                                                        <a href="<?= base_url('main/penghunicheckout/' . $pnghn['id'] . '/' . $rusun_id); ?>" class="check-out" data-toggle="tooltip" data-placement="top" title="Check Out"><i class="fa fa-sign-out btn btn-danger"></i></a>
+
+
+                                                    </td>
+                                                </tr>
+
+                                                <?php $i++; ?>
+                                            <?php endforeach; ?>
+
+                                        <?php endif; ?>
+
                                     </tbody>
                                 </table>
                             </div>

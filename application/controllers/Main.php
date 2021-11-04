@@ -23,9 +23,10 @@ class Main extends CI_Controller
 
 			$data['rusun'] = $this->db->get('rusun')->result_array();
 
-			$data['total_pendapatan'] = $this->rusun->totalPendapatan(date('Y'));
-			$data['pendapatan_bulan_ini'] = $this->rusun->pendapatanBulanIni(date('m'), date('Y'));
-			$data['pendapatan_bulan_lalu'] = $this->rusun->pendapatanBulanLalu(date('m') - 1, date('Y'));
+			$data['total_pendapatan'] = $this->rusun->totalPendapatan();
+			$data['pendapatan_bulan_ini'] = $this->rusun->pendapatanBulan(date('m'), date('Y'));
+			$data['pendapatan_bulan_lalu'] = $this->rusun->pendapatanBulan(date('m') - 1, date('Y'));
+			$data['jumlah_tunggakan'] = $this->rusun->jumlahTunggakan();
 
 			$this->db->select('tahun');
 			$this->db->group_by('tahun');
@@ -143,7 +144,7 @@ class Main extends CI_Controller
 
 			$this->session->set_flashdata('message', 'Tambah Penghuni');
 			$this->session->set_flashdata('flash', 'Successfully!');
-			redirect('main/penghuni/' . $rusun_id);
+			redirect('main/kamar/' . $rusun_id);
 		}
 	}
 
@@ -180,9 +181,6 @@ class Main extends CI_Controller
 		$data['rusun'] = $this->rusun->getRusunByUser($data['user']['id']);
 		$data['tagihan'] = $this->rusun->getTagihanPenghuni($rusun_id, $bulan, $tahun);
 
-		// var_dump($data['tagihan']);
-		// die();
-
 		$this->load->view('templates/header', $data);
 		$this->load->view('templates/sidebar', $data);
 		$this->load->view('tagihan/index', $data);
@@ -209,7 +207,7 @@ class Main extends CI_Controller
 
 		$this->session->set_flashdata('message', 'Bayar Tagihan');
 		$this->session->set_flashdata('flash', 'Successfully!');
-		redirect('main/pendapatan/' . $tagihan['rusun_id'] . '/' . $pendapatan['bulan'] . '/' . $pendapatan['tahun']);
+		redirect('main/tagihan/' . $tagihan['rusun_id'] . '/' . $pendapatan['bulan'] . '/' . $pendapatan['tahun']);
 	}
 
 
@@ -223,9 +221,6 @@ class Main extends CI_Controller
 		$data['pendapatan'] = $this->rusun->getDaftarPendapatan($rusun_id, $bulan, $tahun);
 		$data['total_pendapatan_rusun'] = $this->rusun->getPendapatanByRusun($rusun_id, $bulan, $tahun);
 
-		// var_dump($data['total_pendapatan_rusun']);
-		// die();
-
 		$this->load->view('templates/header', $data);
 		$this->load->view('templates/sidebar', $data);
 		$this->load->view('pendapatan/index', $data);
@@ -236,9 +231,74 @@ class Main extends CI_Controller
 	{
 		$data['user'] = $this->db->get_where('user', ['username' => $this->session->userdata('username')])->row_array();
 
+		$data['rusun'] = $this->db->get('rusun')->result_array();
+		$data['pendapatan'] = $this->rusun->daftarTotalPendapatan();
+		$data['total_pendapatan'] = $this->rusun->totalPendapatan();
+
 		$this->load->view('templates/header', $data);
 		$this->load->view('templates/sidebar', $data);
 		$this->load->view('pendapatan/total', $data);
 		$this->load->view('templates/footer');
+	}
+
+	public function pendapatanBulanIni()
+	{
+		$data['user'] = $this->db->get_where('user', ['username' => $this->session->userdata('username')])->row_array();
+
+		$data['rusun'] = $this->db->get('rusun')->result_array();
+		$data['pendapatan'] = $this->rusun->daftarPendapatanBulan(date('m'), date('Y'));
+		$data['pendapatan_bulan_ini'] = $this->rusun->pendapatanBulan(date('m'), date('Y'));
+
+		$this->load->view('templates/header', $data);
+		$this->load->view('templates/sidebar', $data);
+		$this->load->view('pendapatan/bulan-ini', $data);
+		$this->load->view('templates/footer');
+	}
+
+	public function pendapatanBulanLalu()
+	{
+		$data['user'] = $this->db->get_where('user', ['username' => $this->session->userdata('username')])->row_array();
+
+		$data['rusun'] = $this->db->get('rusun')->result_array();
+		$data['pendapatan'] = $this->rusun->daftarPendapatanBulan(date('m') - 1, date('Y'));
+		$data['pendapatan_bulan_lalu'] = $this->rusun->pendapatanBulan(date('m') - 1, date('Y'));
+
+		$this->load->view('templates/header', $data);
+		$this->load->view('templates/sidebar', $data);
+		$this->load->view('pendapatan/bulan-lalu', $data);
+		$this->load->view('templates/footer');
+	}
+
+	public function tunggakan()
+	{
+		$data['user'] = $this->db->get_where('user', ['username' => $this->session->userdata('username')])->row_array();
+
+		$data['rusun'] = $this->db->get('rusun')->result_array();
+		$data['daftar_tunggakan'] = $this->rusun->daftarTunggakan();
+		$data['jumlah_tunggakan'] = $this->rusun->jumlahTunggakan();
+
+		$this->load->view('templates/header', $data);
+		$this->load->view('templates/sidebar', $data);
+		$this->load->view('tunggakan/index', $data);
+		$this->load->view('templates/footer');
+	}
+
+	public function tambahTagihan()
+	{
+		$tagihan = $this->db->get_where('tagihan', ['bulan' => date('m') - 1])->result_array();
+
+		foreach ($tagihan as $tghn) {
+			$tagihan_baru = [
+				'penghuni_id' => $tghn['penghuni_id'],
+				'bulan' => date('m'),
+				'tahun' => date('Y'),
+				'tgl_tenggat' => date('Y-m-t'),
+				'is_bayar' => 0
+			];
+			$this->db->insert('tagihan', $tagihan_baru);
+		}
+
+		var_dump($tagihan);
+		die();
 	}
 }

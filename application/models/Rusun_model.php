@@ -91,7 +91,7 @@ class Rusun_model extends CI_Model
 				  JOIN `tagihan` ON `penghuni`.`id` = `tagihan`.`penghuni_id`
 				  JOIN `kamar` ON `penghuni`.`kamar_id` = `kamar`.`id`
                   JOIN `lantai` ON `kamar`.`lantai_id` = `lantai`.`id`
-				  WHERE `kamar`.`rusun_id` = $rusun_id AND `penghuni`.`status` = 1 AND month(`penghuni`.`tgl_masuk`) = $bulan AND year(`penghuni`.`tgl_masuk`) = $tahun";
+				  WHERE `kamar`.`rusun_id` = $rusun_id AND `penghuni`.`status` = 1 AND MONTH(`tagihan`.`tgl_tenggat`) = $bulan AND YEAR(`tagihan`.`tgl_tenggat`) = $tahun";
 
 		return $this->db->query($query)->result_array();
 	}
@@ -132,15 +132,28 @@ class Rusun_model extends CI_Model
 		return $this->db->query($query)->row_array();
 	}
 
-	public function totalPendapatan($tahun)
+	public function totalPendapatan()
 	{
-		$query = "SELECT SUM(`jumlah`) AS `jumlah_pendapatan` FROM `pendapatan` 
-				  WHERE `tahun` = $tahun";
+		$query = "SELECT SUM(`jumlah`) AS `jumlah_pendapatan` FROM `pendapatan`";
 
 		return $this->db->query($query)->row_array();
 	}
 
-	public function pendapatanBulanIni($bulan, $tahun)
+	public function daftarTotalPendapatan()
+	{
+		$query = "SELECT `rusun`.`nama_rusun`, SUM(`pendapatan`.`jumlah`) AS jml_pendapatan, COUNT(`rusun`.`id`)
+				  FROM `pendapatan`
+				  JOIN `tagihan` ON `pendapatan`.`tagihan_id` = `tagihan`.`id`
+				  JOIN `penghuni` ON `tagihan`.`penghuni_id` = `penghuni`.`id`
+				  JOIN `kamar` ON `penghuni`.`kamar_id` = `kamar`.`id`
+				  JOIN `lantai` ON `kamar`.`lantai_id` = `lantai`.`id`
+				  JOIN `rusun` ON `lantai`.`rusun_id` = `rusun`.`id`
+				  GROUP BY `rusun`.`id`";
+
+		return $this->db->query($query)->result_array();
+	}
+
+	public function pendapatanBulan($bulan, $tahun)
 	{
 		$query = "SELECT SUM(`jumlah`) AS `jumlah_pendapatan` FROM `pendapatan` 
 				  WHERE `bulan` = $bulan AND `tahun` = $tahun";
@@ -148,12 +161,19 @@ class Rusun_model extends CI_Model
 		return $this->db->query($query)->row_array();
 	}
 
-	public function pendapatanBulanLalu($bulan, $tahun)
+	public function daftarPendapatanBulan($bulan, $tahun)
 	{
-		$query = "SELECT SUM(`jumlah`) AS `jumlah_pendapatan` FROM `pendapatan` 
-				  WHERE `bulan` = $bulan AND `tahun` = $tahun";
+		$query = "SELECT `rusun`.`nama_rusun`, SUM(`pendapatan`.`jumlah`) AS jml_pendapatan, COUNT(`rusun`.`id`)
+				  FROM `pendapatan`
+				  JOIN `tagihan` ON `pendapatan`.`tagihan_id` = `tagihan`.`id`
+				  JOIN `penghuni` ON `tagihan`.`penghuni_id` = `penghuni`.`id`
+				  JOIN `kamar` ON `penghuni`.`kamar_id` = `kamar`.`id`
+				  JOIN `lantai` ON `kamar`.`lantai_id` = `lantai`.`id`
+				  JOIN `rusun` ON `lantai`.`rusun_id` = `rusun`.`id`
+				  WHERE `pendapatan`.`bulan` = $bulan AND `pendapatan`.`tahun` = $tahun
+				  GROUP BY `rusun`.`id`";
 
-		return $this->db->query($query)->row_array();
+		return $this->db->query($query)->result_array();
 	}
 
 	public function totalPendapatanByRusun($rusun_id, $tahun)
@@ -194,5 +214,32 @@ class Rusun_model extends CI_Model
 				  GROUP BY `pendapatan`.`tahun`";
 
 		return $this->db->query($query)->result_array();
+	}
+
+	public function daftarTunggakan()
+	{
+		$query = "SELECT `rusun`.`nama_rusun`, SUM(`lantai`.`harga_lantai`) AS jumlah_tunggakan, COUNT(`rusun`.`id`)
+				  FROM `tagihan`
+				  JOIN `penghuni` ON `tagihan`.`penghuni_id` = `penghuni`.`id`
+				  JOIN `kamar` ON `penghuni`.`kamar_id` = `kamar`.`id`
+				  JOIN `lantai` ON `kamar`.`lantai_id` = `lantai`.`id`
+				  JOIN `rusun` ON `lantai`.`rusun_id` = `rusun`.`id`
+				  WHERE MONTH(`tagihan`.`tgl_tenggat`) < MONTH(CURRENT_DATE()) AND `tagihan`.`is_bayar` = 0
+				  GROUP BY `rusun`.`id`";
+
+		return $this->db->query($query)->result_array();
+	}
+
+	public function jumlahTunggakan()
+	{
+		$query = "SELECT SUM(`lantai`.`harga_lantai`) AS jumlah_tunggakan
+				  FROM `tagihan`
+				  JOIN `penghuni` ON `tagihan`.`penghuni_id` = `penghuni`.`id`
+				  JOIN `kamar` ON `penghuni`.`kamar_id` = `kamar`.`id`
+				  JOIN `lantai` ON `kamar`.`lantai_id` = `lantai`.`id`
+				  JOIN `rusun` ON `lantai`.`rusun_id` = `rusun`.`id`
+				  WHERE MONTH(`tagihan`.`tgl_tenggat`) < MONTH(CURRENT_DATE()) AND `tagihan`.`is_bayar` = 0";
+
+		return $this->db->query($query)->row_array();
 	}
 }

@@ -8,7 +8,7 @@
             <div class="col-lg-12">
                 <div class="card">
                     <div class="card-header">
-                        <h4 class="card-title jdlbyr">Total Pendapatan</h4>
+                        <h4 class="card-title jdlbyr">Total Pendapatan Bulan Ini</h4>
                     </div>
                     <div class="card-body">
                         <div class="table-responsive">
@@ -39,7 +39,7 @@
 
                                         <tr>
                                             <th class="text-center">TOTAL</th>
-                                            <th><?= rupiah($total_pendapatan['jumlah_pendapatan']); ?></th>
+                                            <th><?= rupiah($pendapatan_bulan_ini['jumlah_pendapatan']); ?></th>
                                         </tr>
 
                                     <?php endif; ?>

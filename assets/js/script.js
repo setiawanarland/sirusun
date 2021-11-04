@@ -208,12 +208,12 @@ $( document ).ready(function() {
     console.log(userId);
 
     $.ajax({
-      url: 'http://localhost/sirusun2/admin/useractivation',
+      url: 'http://localhost/sirusun/admin/useractivation',
       data: {id: userId, isActive: userActive},
       method: 'post',
       // dataType: 'json',
       success: function(data) {
-        document.location = 'http://localhost/sirusun2/admin/user';
+        document.location = 'http://localhost/sirusun/admin/user';
       }
     })
 
@@ -228,12 +228,12 @@ $( document ).ready(function() {
     console.log(submenuId);
 
     $.ajax({
-      url: 'http://localhost/sirusun2/admin/submenuactivation',
+      url: 'http://localhost/sirusun/admin/submenuactivation',
       data: {id: submenuId, isActive: submenuActive},
       method: 'post',
       // dataType: 'json',
       success: function(data) {
-        document.location = 'http://localhost/sirusun2/admin/submenu';
+        document.location = 'http://localhost/sirusun/admin/submenu';
       }
     })
 
@@ -246,14 +246,14 @@ $( document ).ready(function() {
    var roleId = $(this).data('role');
 
    $.ajax({
-    url: 'http://localhost/sirusun2/admin/changeaccess',
+    url: 'http://localhost/sirusun/admin/changeaccess',
     type: 'post',
     data: {
         menuId: menuId,
         roleId: roleId
         },
     success: function() {
-      document.location = 'http://localhost/sirusun2/admin/roleaccess/' + roleId;
+      document.location = 'http://localhost/sirusun/admin/roleaccess/' + roleId;
     }
    });
   });
@@ -266,14 +266,14 @@ $( document ).ready(function() {
    console.log(userId);
 
    $.ajax({
-    url: 'http://localhost/sirusun2/admin/changeaccessrusun',
+    url: 'http://localhost/sirusun/admin/changeaccessrusun',
     type: 'post',
     data: {
         rusunId: rusunId,
         userId: userId
         },
     success: function() {
-      document.location = 'http://localhost/sirusun2/admin/rusunaccess/' + rusunId;
+      document.location = 'http://localhost/sirusun/admin/rusunaccess/' + rusunId;
     }
    });
   });
@@ -286,12 +286,12 @@ $( document ).ready(function() {
     // console.log('ok');
 
     $.ajax({
-      url: 'http://localhost/sirusun2/admin/rusunactivation',
+      url: 'http://localhost/sirusun/admin/rusunactivation',
       data: {id: rusunId, isActive: rusunActive},
       method: 'post',
       // dataType: 'json',
       success: function(data) {
-        document.location = 'http://localhost/sirusun2/admin/rusun';
+        document.location = 'http://localhost/sirusun/admin/rusun';
       }
     })
 
@@ -310,7 +310,7 @@ $('#search-lantai').on('click', function() {
   $('#main-wrapper').removeClass('show');
   $('#preloader').fadeIn(500);
 
-  window.location = 'http://localhost/sirusun2/admin/lantai/' + rusunId;
+  window.location = 'http://localhost/sirusun/admin/lantai/' + rusunId;
 
 });
 
@@ -324,7 +324,7 @@ $('#search-kamar').on('click', function() {
   $('#main-wrapper').removeClass('show');
   $('#preloader').fadeIn(500);
 
-  window.location = 'http://localhost/sirusun2/admin/kamar/' + rusunId;
+  window.location = 'http://localhost/sirusun/admin/kamar/' + rusunId;
 
 });
 
@@ -338,7 +338,7 @@ $('#search-daftarkamar').on('click', function() {
   $('#main-wrapper').removeClass('show');
   $('#preloader').fadeIn(500);
 
-  window.location = 'http://localhost/sirusun2/main/kamar/' + rusunId;
+  window.location = 'http://localhost/sirusun/main/kamar/' + rusunId;
 
 });
 
@@ -352,7 +352,7 @@ $('#search-daftarpenghuni').on('click', function() {
   $('#main-wrapper').removeClass('show');
   $('#preloader').fadeIn(500);
 
-  window.location = 'http://localhost/sirusun2/main/penghuni/' + rusunId;
+  window.location = 'http://localhost/sirusun/main/penghuni/' + rusunId;
 
 });
 
@@ -368,7 +368,7 @@ $('#search-daftartagihan').on('click', function() {
   $('#main-wrapper').removeClass('show');
   $('#preloader').fadeIn(500);
 
-  window.location = 'http://localhost/sirusun2/main/tagihan/' + rusunId + '/' + bulan + '/' + tahun;
+  window.location = 'http://localhost/sirusun/main/tagihan/' + rusunId + '/' + bulan + '/' + tahun;
 
 });
 
@@ -384,7 +384,7 @@ $('#search-daftarpendapatan').on('click', function() {
   $('#main-wrapper').removeClass('show');
   $('#preloader').fadeIn(500);
 
-  window.location = 'http://localhost/sirusun2/main/pendapatan/' + rusunId + '/' + bulan + '/' + tahun;
+  window.location = 'http://localhost/sirusun/main/pendapatan/' + rusunId + '/' + bulan + '/' + tahun;
 
 });
 
@@ -410,7 +410,7 @@ $('#rusun-id').on('change', function() {
   console.log(rusunId);
 
   $.ajax({
-      url: 'http://localhost/sirusun2/admin/getLantaiByRusunChange',
+      url: 'http://localhost/sirusun/admin/getLantaiByRusunChange',
       data: {rusunId: rusunId},
       method: 'post',
 
@@ -429,7 +429,7 @@ $('#lantai-id').on('change keypress', function() {
   console.log(lantaiId);
 
   $.ajax({
-      url: 'http://localhost/sirusun2/admin/getHargaByLantaiChange',
+      url: 'http://localhost/sirusun/admin/getHargaByLantaiChange',
       data: {lantaiId: lantaiId},
       method: 'post',
 
