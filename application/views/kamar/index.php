@@ -183,6 +183,18 @@
                                 <label>KK Penghuni</label>
                                 <input type="file" id="kk-penghuni" name="kk-penghuni" class="form-control" placeholder="" autocomplete="off">
                             </div>
+                            <div class="form-group col-md-12">
+                                <label>Pekerjaan Penghuni</label>
+                                <input type="text" id="pekerjaan-penghuni" name="pekerjaan-penghuni" class="form-control" placeholder="" autocomplete="off">
+                            </div>
+                            <div class="form-group col-md-12">
+                                <label>Alamat Penghuni</label>
+                                <input type="text" id="alamat-penghuni" name="alamat-penghuni" class="form-control" placeholder="" autocomplete="off">
+                            </div>
+                            <div class="form-group col-md-12">
+                                <label>Telp. Penghuni</label>
+                                <input type="text" id="telp-penghuni" name="telp-penghuni" class="form-control" placeholder="" autocomplete="off">
+                            </div>
 
                         </div>
                 </div>

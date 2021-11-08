@@ -17,6 +17,23 @@ $( document ).ready(function() {
 		minViewMode: "months"
 	});
 
+  var today2 = new Date();
+  var mm2 = today2.getMonth() + 1; //Month starts from 0
+  var yyyy2 = today2.getFullYear();
+
+  if (mm2<10) {
+      mm2='0'+mm2
+  } 
+  today2 = yyyy2;
+
+  $('#yearpicker').val(today2);
+  
+	$("#yearpicker").datepicker({
+		format: "yyyy",
+		viewMode: "years",
+		minViewMode: "years"
+	});
+
 
   // tooltip
   $(function () {

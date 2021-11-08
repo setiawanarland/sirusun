@@ -43,10 +43,12 @@ class Main extends CI_Controller
 		if ($data['user']['role_id'] == 2) {
 			$rusun_id = rusunId();
 			$data['rusun'] = $this->db->get_where('rusun', ['id' => $rusun_id])->result_array();
+			$data['rusun_id'] = $rusun_id;
 
 			$data['total_pendapatan'] = $this->rusun->totalPendapatanByRusun($rusun_id, date('Y'));
 			$data['pendapatan_bulan_ini'] = $this->rusun->pendapatanRusunByMonthYear($rusun_id, date('m'), date('Y'));
 			$data['pendapatan_bulan_lalu'] = $this->rusun->pendapatanRusunByMonthYear($rusun_id, date('m') - 1, date('Y'));
+			$data['jumlah_tunggakan'] = $this->rusun->jumlahTunggakanRusun($rusun_id);
 
 			$data['tahun_pendapatan'] = $this->rusun->tahunPendapatanRusun($rusun_id);
 			$data['tagihan'] = $this->rusun->getTagihanPenghuni($rusun_id, date('m'), date('Y'));
@@ -78,6 +80,9 @@ class Main extends CI_Controller
 		$this->form_validation->set_rules('nama-penghuni', 'Nama Penghuni', 'required|trim');
 		$this->form_validation->set_rules('nik-penghuni', 'NIK Penghuni', 'required|trim|numeric|min_length[16]|is_unique[penghuni.nik_penghuni]');
 		$this->form_validation->set_rules('no-kk-penghuni', 'No. KK Penghuni', 'required|trim|numeric|min_length[16]|is_unique[penghuni.no_kk_penghuni]');
+		$this->form_validation->set_rules('pekerjaan-penghuni', 'Pekerjaan Penghuni', 'required|trim');
+		$this->form_validation->set_rules('alamat-penghuni', 'Alamat Penghuni', 'required|trim');
+		$this->form_validation->set_rules('telp-penghuni', 'No. Telp. Penghuni', 'required|trim');
 
 		if ($this->form_validation->run() == false) {
 			$this->load->view('templates/header', $data);
@@ -102,6 +107,9 @@ class Main extends CI_Controller
 				'no_kk_penghuni' => $this->input->post('no-kk-penghuni'),
 				'ktp_penghuni' => implode("_", explode(" ", $ktp_penghuni)),
 				'kk_penghuni' => implode("_", explode(" ", $kk_penghuni)),
+				'pekerjaan' => $this->input->post('pekerjaan-penghuni'),
+				'alamat' => $this->input->post('alamat-penghuni'),
+				'no_telp' => $this->input->post('telp-penghuni'),
 				'tgl_masuk' => date('Y-m-d'),
 				'status' => 1
 			];
@@ -312,5 +320,17 @@ class Main extends CI_Controller
 			];
 			$this->db->insert('tagihan', $tagihan_baru);
 		}
+	}
+
+	public function laporan($rusun_id, $tahun)
+	{
+		$data['user'] = $this->db->get_where('user', ['username' => $this->session->userdata('username')])->row_array();
+
+		$data['rusun'] = $this->rusun->getRusunByUser($data['user']['id']);
+
+		$this->load->view('templates/header', $data);
+		$this->load->view('templates/sidebar', $data);
+		$this->load->view('laporan/index', $data);
+		$this->load->view('templates/footer');
 	}
 }

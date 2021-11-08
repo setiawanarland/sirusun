@@ -256,4 +256,17 @@ class Rusun_model extends CI_Model
 
 		return $this->db->query($query)->row_array();
 	}
+
+	public function jumlahTunggakanRusun($rusun_id)
+	{
+		$query = "SELECT SUM(`lantai`.`harga_lantai`) AS jumlah_tunggakan
+				  FROM `tagihan`
+				  JOIN `penghuni` ON `tagihan`.`penghuni_id` = `penghuni`.`id`
+				  JOIN `kamar` ON `penghuni`.`kamar_id` = `kamar`.`id`
+				  JOIN `lantai` ON `kamar`.`lantai_id` = `lantai`.`id`
+				  JOIN `rusun` ON `lantai`.`rusun_id` = `rusun`.`id`
+				  WHERE MONTH(`tagihan`.`tgl_tenggat`) < MONTH(CURRENT_DATE()) AND `tagihan`.`is_bayar` = 0 AND `rusun`.`id` = $rusun_id";
+
+		return $this->db->query($query)->row_array();
+	}
 }

@@ -24,16 +24,24 @@
 
                                 <tbody>
 
-                                    <?php foreach ($detail_tunggakan as $dtl_tgk) : ?>
-
+                                    <?php if (count($detail_tunggakan) <= 0) : ?>
                                         <tr>
-                                            <td><?= $dtl_tgk['nama_penghuni']; ?></td>
-                                            <td><?= $dtl_tgk['no_kamar']; ?></td>
-                                            <td><?= format_bulan_indo($dtl_tgk['tgl_tenggat']); ?></td>
-                                            <td><?= rupiah($dtl_tgk['harga_lantai']); ?></td>
+                                            <td colspan="4" class="text-center"><em>Tidak ada data tunggakan</em></td>
                                         </tr>
+                                    <?php else : ?>
 
-                                    <?php endforeach; ?>
+                                        <?php foreach ($detail_tunggakan as $dtl_tgk) : ?>
+
+                                            <tr>
+                                                <td><?= $dtl_tgk['nama_penghuni']; ?></td>
+                                                <td><?= $dtl_tgk['no_kamar']; ?></td>
+                                                <td><?= format_bulan_indo($dtl_tgk['tgl_tenggat']); ?></td>
+                                                <td><?= rupiah($dtl_tgk['harga_lantai']); ?></td>
+                                            </tr>
+
+                                        <?php endforeach; ?>
+
+                                    <?php endif; ?>
 
                                 </tbody>
                             </table>

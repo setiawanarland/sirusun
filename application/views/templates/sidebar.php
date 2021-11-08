@@ -71,6 +71,13 @@
                                         <span class="nav-text"><?= $sm['sub_menu']; ?></span>
                                     </a>
                                 </li>
+                            <?php elseif ($sm['sub_menu'] == 'Laporan') : ?>
+                                <li>
+                                    <a href="<?= base_url($sm['url']) . '/' . rusunId() . '/' . date('Y'); ?>">
+                                        <i class="<?= $sm['icon']; ?>"></i>
+                                        <span class="nav-text"><?= $sm['sub_menu']; ?></span>
+                                    </a>
+                                </li>
                             <?php else : ?>
                                 <li>
                                     <a href="<?= base_url($sm['url']); ?>">
