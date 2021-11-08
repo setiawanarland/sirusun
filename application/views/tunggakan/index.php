@@ -17,6 +17,7 @@
                                     <tr>
                                         <th>Rusun</th>
                                         <th>Jumlah Tunggakan</th>
+                                        <th>#</th>
                                     </tr>
                                 </thead>
 
@@ -33,13 +34,16 @@
                                             <tr>
                                                 <td><?= $tgk['nama_rusun']; ?></td>
                                                 <td><?= rupiah($tgk['jumlah_tunggakan']); ?></td>
+                                                <td>
+                                                    <a href="<?= base_url('main/detailtunggakan/' . $tgk['rusun_id']) ?>" data-toggle="tooltip" data-placement="top" title="Detail"><i class="fa fa-info btn btn-primary"></i></a>
+                                                </td>
                                             </tr>
 
                                         <?php endforeach; ?>
 
                                         <tr>
                                             <th class="text-center">TOTAL</th>
-                                            <th><?= rupiah($jumlah_tunggakan['jumlah_tunggakan']); ?></th>
+                                            <th colspan="2"><?= rupiah($jumlah_tunggakan['jumlah_tunggakan']); ?></th>
                                         </tr>
 
                                     <?php endif; ?>

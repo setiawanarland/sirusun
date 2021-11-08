@@ -283,6 +283,19 @@ class Main extends CI_Controller
 		$this->load->view('templates/footer');
 	}
 
+	public function detailTunggakan($rusun_id)
+	{
+		$data['user'] = $this->db->get_where('user', ['username' => $this->session->userdata('username')])->row_array();
+
+		$data['rusun'] = $this->db->get_where('rusun', ['id' => $rusun_id])->row_array();
+		$data['detail_tunggakan'] = $this->rusun->detailTunggakan($rusun_id);
+
+		$this->load->view('templates/header', $data);
+		$this->load->view('templates/sidebar', $data);
+		$this->load->view('tunggakan/detail', $data);
+		$this->load->view('templates/footer');
+	}
+
 	public function tambahTagihan()
 	{
 		$tagihan = $this->db->get_where('tagihan', ['bulan' => date('m') - 1])->result_array();

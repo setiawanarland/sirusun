@@ -85,8 +85,6 @@
                                                     </td>
                                                     <td>
                                                         <a href="<?= base_url('main/penghunicheckout/' . $pnghn['id'] . '/' . $rusun_id); ?>" class="check-out" data-toggle="tooltip" data-placement="top" title="Check Out"><i class="fa fa-sign-out btn btn-danger"></i></a>
-
-
                                                     </td>
                                                 </tr>
 
