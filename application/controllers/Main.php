@@ -286,6 +286,8 @@ class Main extends CI_Controller
 	public function tambahTagihan()
 	{
 		$tagihan = $this->db->get_where('tagihan', ['bulan' => date('m') - 1])->result_array();
+		var_dump($tagihan);
+		die();
 
 		foreach ($tagihan as $tghn) {
 			$tagihan_baru = [
@@ -297,8 +299,5 @@ class Main extends CI_Controller
 			];
 			$this->db->insert('tagihan', $tagihan_baru);
 		}
-
-		var_dump($tagihan);
-		die();
 	}
 }

@@ -69,7 +69,7 @@
             <!-- /# column -->
         </div>
 
-        <div class="row">
+        <!-- <div class="row">
             <a href="<?= base_url('main/tambahtagihan') ?>" class="btn btn-primary">ok</a>
             <div class="col-lg-12">
                 <div class="card">
@@ -149,7 +149,7 @@
                 </div>
             </div>
 
-        </div>
+        </div> -->
 
     </div>
 </div>
