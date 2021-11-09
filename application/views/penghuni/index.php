@@ -84,7 +84,7 @@
                                                         <a href="<?= base_url('assets/images/penghuni/' . $pnghn['ktp_penghuni']); ?>" class="" data-lightbox="foto-<?= $pnghn['ktp_penghuni'] ?>" data-title="<?= $pnghn['ktp_penghuni'] ?>" data-toggle="tooltip" data-placement="top" title="Lihat KTP"><i class="fa fa-id-card btn btn-primary"></i></a>
                                                     </td>
                                                     <td>
-                                                        <a href="<?= base_url('main/penghunicheckout/' . $pnghn['id'] . '/' . $rusun_id); ?>" class="check-out" data-toggle="tooltip" data-placement="top" title="Check Out"><i class="fa fa-sign-out btn btn-danger"></i></a>
+                                                        <a href="<?= base_url('main/penghunicheckout/' . $pnghn['id'] . '/' . $pnghn['kamar_id'] . '/' . $rusun_id); ?>" class="check-out" data-toggle="tooltip" data-placement="top" title="Check Out"><i class="fa fa-sign-out btn btn-danger"></i></a>
                                                     </td>
                                                 </tr>
 

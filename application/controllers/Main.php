@@ -170,13 +170,17 @@ class Main extends CI_Controller
 		$this->load->view('templates/footer');
 	}
 
-	public function penghuniCheckout($penghuni_id, $rusun_id)
+	public function penghuniCheckout($penghuni_id, $kamar_id, $rusun_id)
 	{
 		$data['user'] = $this->db->get_where('user', ['username' => $this->session->userdata('username')])->row_array();
 
 		$this->db->set('status', 0);
 		$this->db->where('id', $penghuni_id);
 		$this->db->update('penghuni');
+
+		$this->db->set('status', 0);
+		$this->db->where('id', $kamar_id);
+		$this->db->update('kamar');
 
 		$this->session->set_flashdata('message', 'Penghuni Checkout');
 		$this->session->set_flashdata('flash', 'Successfully!');
@@ -325,8 +329,12 @@ class Main extends CI_Controller
 	public function laporan($rusun_id, $tahun)
 	{
 		$data['user'] = $this->db->get_where('user', ['username' => $this->session->userdata('username')])->row_array();
-
 		$data['rusun'] = $this->rusun->getRusunByUser($data['user']['id']);
+		$data['tahun'] = $tahun;
+		$data['kamar'] = $this->rusun->getKamar($rusun_id);
+
+		// var_dump($data['kamar']);
+		// die();
 
 		$this->load->view('templates/header', $data);
 		$this->load->view('templates/sidebar', $data);

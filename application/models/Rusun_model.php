@@ -8,8 +8,7 @@ class Rusun_model extends CI_Model
 	{
 		$queryRusun = "SELECT COUNT(`lantai`.`rusun_id`) AS lantai, `rusun`.* 
 					   FROM `rusun` 
-					   LEFT JOIN `lantai` 
-					   ON `rusun`.`id` = `lantai`.`rusun_id`
+					   LEFT JOIN `lantai` ON `rusun`.`id` = `lantai`.`rusun_id`
 					   GROUP BY `lantai`.`rusun_id`";
 
 		return $this->db->query($queryRusun)->result_array();
@@ -29,7 +28,7 @@ class Rusun_model extends CI_Model
 					   JOIN `lantai`
 					   ON `kamar`.`lantai_id` = `lantai`.`id` 
 					   WHERE `kamar`.`rusun_id` = $rusun_id
-					   ORDER BY `kamar`.`lantai_id`
+					   ORDER BY `kamar`.`no_kamar`
 					   ";
 
 		return $this->db->query($queryKamar)->result_array();
@@ -268,5 +267,21 @@ class Rusun_model extends CI_Model
 				  WHERE MONTH(`tagihan`.`tgl_tenggat`) < MONTH(CURRENT_DATE()) AND `tagihan`.`is_bayar` = 0 AND `rusun`.`id` = $rusun_id";
 
 		return $this->db->query($query)->row_array();
+	}
+
+	public function getLaporan($rusun_id, $tahun)
+	{
+		$query = "SELECT `kamar`.*, 
+				  `lantai`.`harga_lantai`,  COUNT(`kamar`.`id`) AS count_kamar, SUM(`lantai`.`harga_lantai`) AS jumlah,
+				  `penghuni`.*, `tagihan`.`tgl_tenggat`, `tagihan`.`is_bayar`
+				  FROM `tagihan`
+				  LEFT JOIN `penghuni` ON `tagihan`.`penghuni_id` = `penghuni`.`id`
+				  LEFT JOIN `kamar` ON `penghuni`.`kamar_id` = `kamar`.`id`
+				  LEFT JOIN `lantai` ON `kamar`.`lantai_id` = `lantai`.`id`
+				  LEFT JOIN `rusun` ON `lantai`.`rusun_id` = `rusun`.`id`
+				  WHERE `rusun`.`id` = $rusun_id AND YEAR(`tagihan`.`tgl_tenggat`) = $tahun
+				  GROUP BY `kamar`.`id`";
+
+		return $this->db->query($query)->result_array();
 	}
 }

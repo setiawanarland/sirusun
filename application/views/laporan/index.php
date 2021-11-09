@@ -65,20 +65,65 @@
                                         <th class="align-middle" rowspan="2">Jumlah</th>
                                     </tr>
                                     <tr>
-                                        <th>1</th>
-                                        <th>2</th>
-                                        <th>3</th>
-                                        <th>4</th>
-                                        <th>5</th>
-                                        <th>6</th>
-                                        <th>7</th>
-                                        <th>8</th>
-                                        <th>9</th>
-                                        <th>10</th>
-                                        <th>11</th>
-                                        <th>12</th>
+                                        <?php for ($i = 1; $i <= 12; $i++) : ?>
+                                            <th><?= $i; ?></th>
+                                        <?php endfor; ?>
                                     </tr>
                                 </thead>
+
+                                <tbody>
+
+                                    <?php foreach ($kamar as $kmr) : ?>
+                                        <tr>
+
+                                            <?php
+                                            $query = "SELECT `kamar`.*, `lantai`.`harga_lantai`, `penghuni`.*, `tagihan`.`tgl_tenggat`, `tagihan`.`is_bayar`, SUM(`lantai`.`harga_lantai`) AS jumlah
+                                            FROM `penghuni`
+                                            LEFT JOIN `tagihan` ON `penghuni`.`id` = `tagihan`.`penghuni_id`
+                                            LEFT JOIN `kamar` ON `penghuni`.`kamar_id` = `kamar`.`id`
+                                            LEFT JOIN `lantai` ON `kamar`.`lantai_id` = `lantai`.`id`
+                                            LEFT JOIN `rusun` ON `lantai`.`rusun_id` = `rusun`.`id`
+                                            WHERE `penghuni`.`kamar_id` = $kmr[id] AND YEAR(`tagihan`.`tgl_tenggat`) = $tahun
+                                            GROUP BY `penghuni`.`id`";
+                                            $penghuni = $this->db->query($query)->result_array();
+                                            ?>
+
+                                            <?php if (count($penghuni) > 1) : ?>
+                                                <td rowspan="<?= count($penghuni) ?>"><?= $kmr['no_kamar']; ?></td>
+                                            <?php else : ?>
+                                                <td><?= $kmr['no_kamar']; ?></td>
+                                            <?php endif; ?>
+
+                                            <?php foreach ($penghuni as $pghn) : ?>
+                                                <td><?= $pghn['nama_penghuni']; ?></td>
+                                                <td><?= $pghn['pekerjaan']; ?></td>
+
+                                                <?php for ($i = 1; $i <= 12; $i++) : ?>
+
+                                                    <?php if ($i == date('m', strtotime($pghn['tgl_tenggat'])) && $pghn['is_bayar'] == 1) : ?>
+                                                        <td class="text-center"><i class="fas fa-check"></td>
+                                                    <?php elseif ($i == date('m', strtotime($pghn['tgl_tenggat'])) && $pghn['is_bayar'] != 1) : ?>
+                                                        <td class="text-center"><i class="fas fa-times"></i></td>
+                                                    <?php elseif ($i < date('m', strtotime($pghn['tgl_masuk']))) : ?>
+                                                        <td></td>
+                                                    <?php else : ?>
+                                                        <td></td>
+                                                    <?php endif; ?>
+                                                <?php endfor; ?>
+
+                                                <?php if ($pghn['is_bayar'] == 1) : ?>
+                                                    <td><?= rupiah($pghn['jumlah']); ?></td>
+                                                <?php else : ?>
+                                                    <td><?= rupiah(0); ?></td>
+                                                <?php endif; ?>
+
+                                        </tr>
+                                    <?php endforeach; ?>
+
+                                <?php endforeach; ?>
+
+                                </tbody>
+
                             </table>
                         </div>
                     </div>
