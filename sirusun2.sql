@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Waktu pembuatan: 08 Nov 2021 pada 07.07
+-- Waktu pembuatan: 09 Nov 2021 pada 17.35
 -- Versi server: 10.1.38-MariaDB
 -- Versi PHP: 7.3.4
 
@@ -62,17 +62,205 @@ CREATE TABLE `kamar` (
 --
 
 INSERT INTO `kamar` (`id`, `lantai_id`, `rusun_id`, `no_kamar`, `status`) VALUES
-(1, 2, 1, 101, 1),
-(3, 3, 3, 101, 1),
-(9, 2, 1, 102, 1),
-(10, 2, 1, 103, 1),
-(11, 2, 1, 104, 1),
-(12, 3, 3, 102, 1),
-(13, 8, 3, 201, 0),
-(14, 3, 3, 103, 0),
-(15, 4, 1, 201, 0),
-(16, 2, 1, 105, 0),
-(17, 10, 4, 101, 1);
+(1, 1, 1, 101, 0),
+(2, 1, 1, 102, 0),
+(3, 1, 1, 103, 0),
+(4, 1, 1, 104, 0),
+(5, 2, 1, 201, 0),
+(6, 2, 1, 202, 0),
+(7, 2, 1, 203, 0),
+(8, 2, 1, 204, 0),
+(9, 2, 1, 205, 0),
+(10, 2, 1, 206, 0),
+(11, 2, 1, 207, 0),
+(12, 2, 1, 208, 0),
+(13, 2, 1, 209, 0),
+(14, 2, 1, 210, 0),
+(15, 2, 1, 211, 0),
+(16, 2, 1, 212, 0),
+(17, 2, 1, 213, 0),
+(18, 2, 1, 214, 0),
+(19, 2, 1, 215, 0),
+(20, 2, 1, 216, 0),
+(21, 2, 1, 217, 0),
+(22, 2, 1, 218, 0),
+(23, 2, 1, 219, 0),
+(24, 2, 1, 220, 0),
+(25, 2, 1, 221, 0),
+(26, 2, 1, 222, 0),
+(27, 2, 1, 223, 0),
+(28, 2, 1, 224, 0),
+(29, 3, 1, 301, 0),
+(30, 3, 1, 302, 0),
+(31, 3, 1, 303, 0),
+(32, 3, 1, 304, 0),
+(33, 3, 1, 305, 0),
+(34, 3, 1, 306, 0),
+(35, 3, 1, 307, 0),
+(36, 3, 1, 308, 0),
+(37, 3, 1, 309, 0),
+(38, 3, 1, 310, 0),
+(39, 3, 1, 311, 0),
+(40, 3, 1, 312, 0),
+(41, 3, 1, 313, 0),
+(42, 3, 1, 314, 0),
+(43, 3, 1, 315, 0),
+(44, 3, 1, 316, 0),
+(45, 3, 1, 317, 0),
+(46, 3, 1, 318, 0),
+(47, 3, 1, 319, 0),
+(48, 3, 1, 320, 0),
+(49, 3, 1, 321, 0),
+(50, 3, 1, 323, 0),
+(51, 3, 1, 324, 0),
+(52, 4, 1, 401, 0),
+(53, 4, 1, 402, 0),
+(54, 4, 1, 403, 0),
+(55, 4, 1, 404, 0),
+(56, 4, 1, 405, 0),
+(57, 4, 1, 406, 0),
+(58, 4, 1, 407, 0),
+(59, 4, 1, 408, 0),
+(60, 4, 1, 409, 0),
+(61, 4, 1, 410, 0),
+(62, 4, 1, 411, 0),
+(63, 4, 1, 412, 0),
+(64, 4, 1, 413, 0),
+(65, 4, 1, 414, 0),
+(66, 4, 1, 415, 0),
+(67, 4, 1, 416, 0),
+(68, 4, 1, 417, 0),
+(69, 4, 1, 418, 0),
+(70, 4, 1, 419, 0),
+(71, 4, 1, 420, 0),
+(72, 4, 1, 421, 0),
+(73, 4, 1, 422, 0),
+(74, 4, 1, 423, 0),
+(75, 4, 1, 424, 0),
+(76, 5, 1, 501, 0),
+(77, 5, 1, 502, 0),
+(78, 5, 1, 503, 0),
+(79, 5, 1, 504, 0),
+(80, 5, 1, 505, 0),
+(81, 5, 1, 506, 0),
+(82, 5, 1, 507, 0),
+(83, 5, 1, 508, 0),
+(84, 5, 1, 509, 0),
+(85, 5, 1, 510, 0),
+(86, 5, 1, 511, 0),
+(87, 5, 1, 512, 0),
+(88, 5, 1, 513, 0),
+(89, 5, 1, 514, 0),
+(90, 5, 1, 515, 0),
+(91, 5, 1, 516, 0),
+(92, 5, 1, 517, 0),
+(93, 5, 1, 518, 0),
+(94, 5, 1, 519, 0),
+(95, 5, 1, 520, 0),
+(96, 5, 1, 521, 0),
+(97, 5, 1, 522, 0),
+(98, 5, 1, 523, 0),
+(99, 5, 1, 524, 0),
+(100, 6, 2, 101, 0),
+(101, 6, 2, 102, 0),
+(102, 6, 2, 103, 0),
+(103, 6, 2, 104, 0),
+(104, 7, 1, 201, 0),
+(105, 7, 1, 202, 0),
+(106, 7, 1, 203, 0),
+(107, 7, 1, 204, 0),
+(108, 7, 1, 207, 0),
+(109, 7, 1, 206, 0),
+(110, 7, 1, 207, 0),
+(111, 7, 1, 208, 0),
+(112, 7, 1, 209, 0),
+(113, 7, 1, 210, 0),
+(114, 7, 1, 211, 0),
+(115, 7, 1, 212, 0),
+(116, 7, 1, 213, 0),
+(117, 7, 1, 214, 0),
+(118, 7, 1, 217, 0),
+(119, 7, 1, 216, 0),
+(120, 7, 1, 217, 0),
+(121, 7, 1, 218, 0),
+(122, 7, 1, 219, 0),
+(123, 7, 1, 220, 0),
+(124, 7, 1, 221, 0),
+(125, 7, 1, 222, 0),
+(126, 7, 1, 223, 0),
+(127, 7, 1, 224, 0),
+(128, 8, 1, 301, 0),
+(129, 8, 1, 302, 0),
+(130, 8, 1, 303, 0),
+(131, 8, 1, 304, 0),
+(132, 8, 1, 307, 0),
+(133, 8, 1, 306, 0),
+(134, 8, 1, 307, 0),
+(135, 8, 1, 308, 0),
+(136, 8, 1, 309, 0),
+(137, 8, 1, 310, 0),
+(138, 8, 1, 311, 0),
+(139, 8, 1, 312, 0),
+(140, 8, 1, 313, 0),
+(141, 8, 1, 314, 0),
+(142, 8, 1, 317, 0),
+(143, 8, 1, 316, 0),
+(144, 8, 1, 317, 0),
+(145, 8, 1, 318, 0),
+(146, 8, 1, 319, 0),
+(147, 8, 1, 320, 0),
+(148, 8, 1, 321, 0),
+(149, 8, 1, 322, 0),
+(150, 8, 1, 323, 0),
+(151, 8, 1, 324, 0),
+(152, 9, 1, 401, 0),
+(153, 9, 1, 402, 0),
+(154, 9, 1, 403, 0),
+(155, 9, 1, 404, 0),
+(156, 9, 1, 407, 0),
+(157, 9, 1, 406, 0),
+(158, 9, 1, 407, 0),
+(159, 9, 1, 408, 0),
+(160, 9, 1, 409, 0),
+(161, 9, 1, 410, 0),
+(162, 9, 1, 411, 0),
+(163, 9, 1, 412, 0),
+(164, 9, 1, 413, 0),
+(165, 9, 1, 414, 0),
+(166, 9, 1, 417, 0),
+(167, 9, 1, 416, 0),
+(168, 9, 1, 417, 0),
+(169, 9, 1, 418, 0),
+(170, 9, 1, 419, 0),
+(171, 9, 1, 420, 0),
+(172, 9, 1, 421, 0),
+(173, 9, 1, 422, 0),
+(174, 9, 1, 423, 0),
+(175, 9, 1, 424, 0),
+(176, 10, 1, 501, 0),
+(177, 10, 1, 502, 0),
+(178, 10, 1, 503, 0),
+(179, 10, 1, 504, 0),
+(180, 10, 1, 507, 0),
+(181, 10, 1, 506, 0),
+(182, 10, 1, 507, 0),
+(183, 10, 1, 508, 0),
+(184, 10, 1, 509, 0),
+(185, 10, 1, 510, 0),
+(186, 10, 1, 511, 0),
+(187, 10, 1, 512, 0),
+(188, 10, 1, 513, 0),
+(189, 10, 1, 514, 0),
+(190, 10, 1, 517, 0),
+(191, 10, 1, 516, 0),
+(192, 10, 1, 517, 0),
+(193, 10, 1, 518, 0),
+(194, 10, 1, 519, 0),
+(195, 10, 1, 520, 0),
+(196, 10, 1, 521, 0),
+(197, 10, 1, 522, 0),
+(198, 10, 1, 523, 0),
+(199, 10, 1, 524, 0);
 
 -- --------------------------------------------------------
 
@@ -93,15 +281,16 @@ CREATE TABLE `lantai` (
 --
 
 INSERT INTO `lantai` (`id`, `rusun_id`, `nama_lantai`, `harga_lantai`, `is_active`) VALUES
-(2, 1, 'Lantai 1', 200000, 1),
-(3, 3, 'Lantai 1', 300000, 1),
-(4, 1, 'Lantai 2', 300000, 1),
-(5, 1, 'Lantai 3', 400000, 1),
-(6, 1, 'Lantai 4', 500000, 1),
-(7, 1, 'Lantai 5', 600000, 1),
-(8, 3, 'Lantai 2', 300000, 1),
-(9, 3, 'Lantai 3', 500000, 1),
-(10, 4, 'Lantai 1', 200000, 1);
+(1, 1, 'Lantai 1', 200000, 1),
+(2, 1, 'Lantai 2', 200000, 1),
+(3, 1, 'Lantai 3', 175000, 1),
+(4, 1, 'Lantai 4', 150000, 1),
+(5, 1, 'Lantai 5', 125000, 1),
+(6, 2, 'Lantai 1', 300000, 1),
+(7, 2, 'Lantai 2', 200000, 1),
+(8, 2, 'Lantai 3', 175000, 1),
+(9, 2, 'Lantai 4', 150000, 1),
+(10, 2, 'Lantai 5', 125000, 1);
 
 -- --------------------------------------------------------
 
@@ -117,18 +306,6 @@ CREATE TABLE `pendapatan` (
   `tahun` int(11) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
---
--- Dumping data untuk tabel `pendapatan`
---
-
-INSERT INTO `pendapatan` (`id`, `tagihan_id`, `jumlah`, `bulan`, `tahun`) VALUES
-(1, 5, 200000, 10, 2021),
-(2, 1, 200000, 11, 2021),
-(3, 3, 300000, 11, 2021),
-(4, 2, 200000, 11, 2021),
-(5, 4, 300000, 11, 2021),
-(6, 6, 200000, 11, 2021);
-
 -- --------------------------------------------------------
 
 --
@@ -143,22 +320,12 @@ CREATE TABLE `penghuni` (
   `no_kk_penghuni` varchar(20) NOT NULL,
   `ktp_penghuni` varchar(128) NOT NULL,
   `kk_penghuni` varchar(128) NOT NULL,
+  `pekerjaan` varchar(128) NOT NULL,
+  `alamat` varchar(128) NOT NULL,
+  `no_telp` varchar(20) NOT NULL,
   `tgl_masuk` date NOT NULL,
   `status` int(1) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
-
---
--- Dumping data untuk tabel `penghuni`
---
-
-INSERT INTO `penghuni` (`id`, `kamar_id`, `nama_penghuni`, `nik_penghuni`, `no_kk_penghuni`, `ktp_penghuni`, `kk_penghuni`, `tgl_masuk`, `status`) VALUES
-(1, 1, 'Penghuni 1', '1234567890123456', '1234567890123456', '11-21_ktp_Penghuni_1.jpg', '11-21_kk_Penghuni_1.jpg', '2021-11-04', 1),
-(2, 9, 'Penghuni 2', '1234567890123455', '1234567890123455', '11-21_ktp_Penghuni_2.jpg', '11-21_kk_Penghuni_2.jpg', '2021-11-04', 1),
-(3, 3, 'Penghuni 3', '1234567890123454', '1234567890123454', '11-21_ktp_Penghuni_3.jpg', '11-21_kk_Penghuni_3.jpg', '2021-11-04', 1),
-(4, 12, 'Penghuni 4', '1234567890123453', '1234567890123453', '11-21_ktp_Penghuni_4.jpg', '11-21_kk_Penghuni_4.jpg', '2021-11-04', 1),
-(5, 17, 'Penghuni 5', '1234567890123452', '1234567890123452', '11-21_ktp_Penghuni_5.jpg', '11-21_kk_Penghuni_5.jpg', '2021-11-04', 1),
-(6, 10, 'Penghuni 6', '1234567890123451', '1234567890123451', '11-21_ktp_Penghuni_6.jpg', '11-21_kk_Penghuni_6.jpg', '2021-11-04', 1),
-(7, 11, 'Penghuni 7', '1234567890123450', '1234567890123450', '11-21_ktp_Penghuni_7.jpg', '11-21_kk_Penghuni_7.jpg', '2021-11-04', 1);
 
 -- --------------------------------------------------------
 
@@ -179,9 +346,8 @@ CREATE TABLE `rusun` (
 --
 
 INSERT INTO `rusun` (`id`, `nama_rusun`, `alamat_rusun`, `is_active`, `date_create`) VALUES
-(1, 'Rusun Anggrek Mawar', 'Jl. Lanto Dg. Pasewang', 1, 1633664751),
-(3, 'Rusun Melati', 'Jl. Pahlawan', 1, 1633691462),
-(4, 'Rusun ASN', 'Jl. Lanto Dg. Pasewang', 1, 1635411673);
+(1, 'Rusun Anggrek', 'Jl. 1', 1, 1636472994),
+(2, 'Rusun Mawar', 'Jl. 2', 1, 1636473027);
 
 -- --------------------------------------------------------
 
@@ -197,20 +363,6 @@ CREATE TABLE `tagihan` (
   `tgl_tenggat` date NOT NULL,
   `is_bayar` int(1) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
-
---
--- Dumping data untuk tabel `tagihan`
---
-
-INSERT INTO `tagihan` (`id`, `penghuni_id`, `bulan`, `tahun`, `tgl_tenggat`, `is_bayar`) VALUES
-(1, 1, 11, 2021, '2021-11-30', 1),
-(2, 2, 11, 2021, '2021-11-30', 1),
-(3, 3, 11, 2021, '2021-11-30', 1),
-(4, 4, 11, 2021, '2021-11-30', 1),
-(5, 5, 11, 2021, '2021-11-30', 1),
-(6, 6, 11, 2021, '2021-11-30', 1),
-(7, 7, 10, 2021, '2021-10-31', 0),
-(8, 7, 11, 2021, '2021-11-30', 0);
 
 -- --------------------------------------------------------
 
@@ -283,7 +435,8 @@ INSERT INTO `user_access_rusun` (`id`, `user_id`, `rusun_id`) VALUES
 (1, 1, 1),
 (2, 1, 3),
 (4, 2, 3),
-(5, 1, 4);
+(5, 1, 4),
+(6, 1, 2);
 
 -- --------------------------------------------------------
 
@@ -344,8 +497,8 @@ CREATE TABLE `user_sub_menu` (
 --
 
 INSERT INTO `user_sub_menu` (`id`, `menu_id`, `sub_menu`, `url`, `icon`, `is_active`) VALUES
-(1, 1, 'User', 'admin/user', 'far fa-fw-4 fa-users', 1),
-(2, 1, 'User Role', 'admin/role', 'fas fa-fw-4 fa-users-cog', 1),
+(1, 1, 'User', 'admin/user', 'far fa-fw-4 fa-users', 0),
+(2, 1, 'User Role', 'admin/role', 'fas fa-fw-4 fa-users-cog', 0),
 (3, 1, 'Menu', 'admin/menu', 'far fa-fw-3 fa-bars', 1),
 (4, 1, 'Submenu', 'admin/submenu', 'far fa-fw-4 fa-ellipsis-h', 1),
 (6, 1, 'Rusun', 'admin/rusun', 'far fa-fw-3 fa-building', 1),
@@ -357,7 +510,8 @@ INSERT INTO `user_sub_menu` (`id`, `menu_id`, `sub_menu`, `url`, `icon`, `is_act
 (14, 5, 'Daftar Kamar', 'main/kamar', 'far fa-fw-4 fa-hotel', 1),
 (15, 5, 'Daftar Penghuni', 'main/penghuni', 'far fa-fw-4 fa-restroom', 1),
 (16, 5, 'Tagihan', 'main/tagihan', 'far fa-fw-4 fa-wallet', 1),
-(17, 5, 'Pendapatan', 'main/pendapatan', 'far fa-fw-4 fa-plus-circle', 1);
+(17, 5, 'Pendapatan', 'main/pendapatan', 'far fa-fw-4 fa-plus-circle', 1),
+(18, 5, 'Laporan', 'main/laporan', 'far fa-fw-4 fa-file-signature', 1);
 
 --
 -- Indexes for dumped tables
@@ -455,7 +609,7 @@ ALTER TABLE `cron_test`
 -- AUTO_INCREMENT untuk tabel `kamar`
 --
 ALTER TABLE `kamar`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=18;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=200;
 
 --
 -- AUTO_INCREMENT untuk tabel `lantai`
@@ -467,25 +621,25 @@ ALTER TABLE `lantai`
 -- AUTO_INCREMENT untuk tabel `pendapatan`
 --
 ALTER TABLE `pendapatan`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=7;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
 
 --
 -- AUTO_INCREMENT untuk tabel `penghuni`
 --
 ALTER TABLE `penghuni`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=8;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
 
 --
 -- AUTO_INCREMENT untuk tabel `rusun`
 --
 ALTER TABLE `rusun`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
 
 --
 -- AUTO_INCREMENT untuk tabel `tagihan`
 --
 ALTER TABLE `tagihan`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=9;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
 
 --
 -- AUTO_INCREMENT untuk tabel `user`
@@ -503,7 +657,7 @@ ALTER TABLE `user_access_menu`
 -- AUTO_INCREMENT untuk tabel `user_access_rusun`
 --
 ALTER TABLE `user_access_rusun`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=7;
 
 --
 -- AUTO_INCREMENT untuk tabel `user_menu`
@@ -521,7 +675,7 @@ ALTER TABLE `user_role`
 -- AUTO_INCREMENT untuk tabel `user_sub_menu`
 --
 ALTER TABLE `user_sub_menu`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=18;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=19;
 COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
