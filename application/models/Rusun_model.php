@@ -80,6 +80,21 @@ class Rusun_model extends CI_Model
 		return $this->db->query($query)->result_array();
 	}
 
+	public function getTagihanBroadcast($bulan, $tahun)
+	{
+
+		$query = "SELECT `kamar`.`id` as kamar_id, `kamar`.`no_kamar`, `kamar`.`lantai_id`, 
+				  `lantai`.`harga_lantai`, `tagihan`.*, 
+				  `penghuni`.*
+				  FROM `penghuni`
+				  JOIN `tagihan` ON `penghuni`.`id` = `tagihan`.`penghuni_id`
+				  JOIN `kamar` ON `penghuni`.`kamar_id` = `kamar`.`id`
+                  JOIN `lantai` ON `kamar`.`lantai_id` = `lantai`.`id`
+				  WHERE `penghuni`.`status` = 1 AND MONTH(`tagihan`.`tgl_tenggat`) = $bulan AND YEAR(`tagihan`.`tgl_tenggat`) = $tahun AND `is_bayar` = 0";
+
+		return $this->db->query($query)->result_array();
+	}
+
 	public function getTagihanPenghuni($rusun_id, $bulan, $tahun)
 	{
 

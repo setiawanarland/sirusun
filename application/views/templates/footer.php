@@ -81,6 +81,9 @@
 <script src="<?= base_url('assets/'); ?>js/lightbox/lightbox.min.js"></script>
 <!-- datepicker -->
 <script src="<?= base_url('assets/'); ?>js/bootstrap-datepicker.js"></script>
+<!-- datatables -->
+<script src="<?= base_url('assets/'); ?>vendor/datatables/js/jquery.dataTables.min.js"></script>
+<script src="<?= base_url('assets/'); ?>js/plugins-init/datatables.init.js"></script>
 <!-- rupiah format -->
 <script src="<?= base_url('assets/'); ?>js/rupiah.min.js"></script>
 <!-- Custom Script -->

@@ -51,10 +51,11 @@
                 <div class="card">
                     <div class="card-header">
                         <h4 class="card-title jdlbyr">Laporan Tahunan</h4>
+                        <a href="<?= base_url('main/export/' . $this->uri->segment(3) . '/' . $this->uri->segment(4)) ?>" id="create_excel" class="btn btn-primary"><i class="fas fa-download"></i></a>
                     </div>
                     <div class="card-body">
                         <div class="table-responsive">
-                            <table class="table table-responsive-sm table-bordered">
+                            <table id="report_table" class="table table-responsive-sm table-bordered display" style="width:100%">
                                 <thead class="text-center">
 
                                     <tr>
@@ -79,10 +80,10 @@
                                             <?php
                                             $query = "SELECT `kamar`.*, `lantai`.`harga_lantai`, `penghuni`.*, `tagihan`.`tgl_tenggat`, `tagihan`.`is_bayar`, SUM(`lantai`.`harga_lantai`) AS jumlah
                                             FROM `penghuni`
-                                            LEFT JOIN `tagihan` ON `penghuni`.`id` = `tagihan`.`penghuni_id`
-                                            LEFT JOIN `kamar` ON `penghuni`.`kamar_id` = `kamar`.`id`
-                                            LEFT JOIN `lantai` ON `kamar`.`lantai_id` = `lantai`.`id`
-                                            LEFT JOIN `rusun` ON `lantai`.`rusun_id` = `rusun`.`id`
+                                            JOIN `tagihan` ON `penghuni`.`id` = `tagihan`.`penghuni_id`
+                                            JOIN `kamar` ON `penghuni`.`kamar_id` = `kamar`.`id`
+                                            JOIN `lantai` ON `kamar`.`lantai_id` = `lantai`.`id`
+                                            JOIN `rusun` ON `lantai`.`rusun_id` = `rusun`.`id`
                                             WHERE `penghuni`.`kamar_id` = $kmr[id] AND YEAR(`tagihan`.`tgl_tenggat`) = $tahun
                                             GROUP BY `penghuni`.`id`";
                                             $penghuni = $this->db->query($query)->result_array();

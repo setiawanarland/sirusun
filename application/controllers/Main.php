@@ -1,6 +1,10 @@
 <?php
 defined('BASEPATH') or exit('No direct script access allowed');
 
+
+use PhpOffice\PhpSpreadsheet\Spreadsheet;
+use PhpOffice\PhpSpreadsheet\Writer\Xlsx;
+
 class Main extends CI_Controller
 {
 
@@ -311,8 +315,6 @@ class Main extends CI_Controller
 	public function tambahTagihan()
 	{
 		$tagihan = $this->db->get_where('tagihan', ['bulan' => date('m') - 1])->result_array();
-		var_dump($tagihan);
-		die();
 
 		foreach ($tagihan as $tghn) {
 			$tagihan_baru = [
@@ -326,19 +328,172 @@ class Main extends CI_Controller
 		}
 	}
 
+	public function sendMessage()
+	{
+		// $penghuni = $this->rusun->getTagihanBroadcast(date('m') - 1, date('Y'));
+		$penghuni = [
+			[
+				'no_telp' => '085299987685'
+			],
+			[
+				'no_telp' => '082311274540'
+			]
+		];
+
+		$pesan = nl2br("You will find the \n newlines in this string \r\n on the browser window.");
+
+		foreach ($penghuni as $p) {
+			// function broadcast in login_helper.php
+			broadcast($p['no_telp'], $pesan);
+		}
+	}
+
 	public function laporan($rusun_id, $tahun)
 	{
 		$data['user'] = $this->db->get_where('user', ['username' => $this->session->userdata('username')])->row_array();
 		$data['rusun'] = $this->rusun->getRusunByUser($data['user']['id']);
 		$data['tahun'] = $tahun;
-		$data['kamar'] = $this->rusun->getKamar($rusun_id);
-
-		// var_dump($data['kamar']);
-		// die();
+		$data['kamar'] = $this->db->get_where('kamar', ['rusun_id' => $rusun_id])->result_array();
 
 		$this->load->view('templates/header', $data);
 		$this->load->view('templates/sidebar', $data);
 		$this->load->view('laporan/index', $data);
 		$this->load->view('templates/footer');
+	}
+
+	public function export($rusun_id, $tahun)
+	{
+		$kamar = $this->db->get_where('kamar', ['rusun_id' => $rusun_id])->result();
+		// var_dump($kamar);
+		// die();
+
+		$spreadsheet = new Spreadsheet();
+		$sheet = $spreadsheet->getActiveSheet();
+		$sheet->getStyle('A:P')->getAlignment()->setHorizontal('center');
+		$sheet->getStyle('A:P')->getAlignment()->setVertical('center');
+		$sheet->freezePane('A3');
+
+		foreach (range('A', 'Z') as $columnID) {
+			$sheet->getColumnDimension($columnID)->setAutoSize(true);
+		}
+
+		$sheet->setCellValue('A1', 'No. Kamar')->mergeCells('A1:A2');
+		$sheet->setCellValue('B1', 'Penghuni')->mergeCells('B1:B2');
+		$sheet->setCellValue('C1', 'Pekerjaan')->mergeCells('C1:C2');
+		$sheet->setCellValue('D1', 'Pembayaran Bulanan')->mergeCells('D1:O1');
+
+		$i = 1;
+		foreach (range('d', 'o') as $v) {
+			$sheet->setCellValue($v . '2', $i);
+			$i++;
+		}
+
+		$sheet->setCellValue('P1', 'Jumlah')->mergeCells('P1:P2');
+
+		$kolom = 3;
+		$penghuni_kamar = 3;
+		$jumlah_kamar = count($kamar) + 3;
+
+		foreach ($kamar as $kmr) {
+
+
+			$query = "SELECT `kamar`.*, `lantai`.`harga_lantai`, `penghuni`.*, `tagihan`.`tgl_tenggat`, `tagihan`.`is_bayar`, SUM(`lantai`.`harga_lantai`) AS jumlah
+                      FROM `penghuni`
+                      LEFT JOIN `tagihan` ON `penghuni`.`id` = `tagihan`.`penghuni_id`
+                      LEFT JOIN `kamar` ON `penghuni`.`kamar_id` = `kamar`.`id`
+                      LEFT JOIN `lantai` ON `kamar`.`lantai_id` = `lantai`.`id`
+                      LEFT JOIN `rusun` ON `lantai`.`rusun_id` = `rusun`.`id`
+                      WHERE `penghuni`.`kamar_id` = $kmr->id AND YEAR(`tagihan`.`tgl_tenggat`) = $tahun
+                      GROUP BY `penghuni`.`id`";
+			$penghuni = $this->db->query($query)->result();
+
+			// print no_kamar
+			if (count($penghuni) > 1) {
+				$sheet->setCellValue('A' . $kolom, $kmr->no_kamar)->mergeCells('A' . $kolom . ':A' . ($kolom + (count($penghuni) - 1)));
+				$penghuni_kamar = $kolom;
+				$kolom = $kolom + (count($penghuni) - 1);
+			} else {
+				$sheet->setCellValue('A' . $kolom, $kmr->no_kamar);
+			}
+
+			// print col nama penghuni & pekerjaan
+			foreach ($penghuni as $pghn) {
+				if ($pghn->kamar_id == $kmr->id) {
+
+					if (count($penghuni) > 1) {
+						$sheet->setCellValue('B' . $penghuni_kamar, $pghn->nama_penghuni);
+						$sheet->setCellValue('C' . $penghuni_kamar, $pghn->pekerjaan);
+					} else {
+
+						$sheet->setCellValue('B' . $kolom, $pghn->nama_penghuni);
+						$sheet->setCellValue('C' . $kolom, $pghn->pekerjaan);
+					}
+				} else {
+					$sheet->setCellValue('B' . $kolom, '');
+					$sheet->setCellValue('C' . $kolom, '');
+				}
+
+				// print col pembayaran bulanan
+				$j = 1;
+				foreach (range('d', 'o') as $v) {
+
+					if (count($penghuni) > 1) {
+
+						if ($j == date('m', strtotime($pghn->tgl_tenggat)) && $pghn->is_bayar == 1) {
+							$sheet->setCellValue($v . $penghuni_kamar, $pghn->harga_lantai);
+						} elseif ($j == date('m', strtotime($pghn->tgl_tenggat)) && $pghn->is_bayar != 1) {
+							$sheet->setCellValue($v . $penghuni_kamar, '  x   ');
+						} elseif ($j < date('m', strtotime($pghn->tgl_masuk))) {
+							$sheet->setCellValue($v . $penghuni_kamar, '      ');
+						} else {
+							$sheet->setCellValue($v . $penghuni_kamar, '      ');
+						}
+					} else {
+						if ($j == date('m', strtotime($pghn->tgl_tenggat)) && $pghn->is_bayar == 1) {
+							$sheet->setCellValue($v . $kolom, $pghn->harga_lantai);
+						} elseif ($j == date('m', strtotime($pghn->tgl_tenggat)) && $pghn->is_bayar != 1) {
+							$sheet->setCellValue($v . $kolom, '  x   ');
+						} elseif ($j < date('m', strtotime($pghn->tgl_masuk))) {
+							$sheet->setCellValue($v . $kolom, '      ');
+						} else {
+							$sheet->setCellValue($v . $kolom, '      ');
+						}
+					}
+
+					$j++;
+				}
+				// print col jumlah
+				if (count($penghuni) > 1) {
+					$sheet->setCellValue('P' . $penghuni_kamar, '=SUM(D' . $penghuni_kamar . ':O' . $penghuni_kamar . ')');
+				} else {
+					$sheet->setCellValue('P' . $kolom, '=SUM(D' . $kolom . ':O' . $kolom . ')');
+				}
+
+				$penghuni_kamar++;
+			}
+
+			$kolom++;
+		}
+
+		// print row TOTAL
+		$sheet->setCellValue('A' . $kolom, 'TOTAL')->mergeCells('A' . $kolom . ':C' . $kolom);
+		foreach (range('d', 'o') as $v) {
+			$sheet->setCellValue($v . $kolom, '=SUM(' . $v . '3:' . $v . ($jumlah_kamar - 1) . ')');
+		}
+		$sheet->setCellValue('P' . $kolom, '=SUM(P3:P' . ($jumlah_kamar - 1) . ')');
+
+		$writer = new Xlsx($spreadsheet);
+
+		$query_rusun = "SELECT `nama_rusun` FROM `rusun` WHERE `id` = $rusun_id";
+		$nama_rusun = $this->db->query($query_rusun)->row();
+
+		$filename = 'Laporan ' . $nama_rusun->nama_rusun . ' Tahun ' . $tahun;
+
+		header('Content-Type: application/vnd.ms-excel');
+		header('Content-Disposition: attachment;filename="' . $filename . '.xlsx"');
+		header('Cache-Control: max-age=0');
+
+		$writer->save('php://output'); // download file 
+
 	}
 }

@@ -87,6 +87,37 @@ function rusunId()
 	return intval($result[0]['rusun_id']);
 }
 
+function broadcast($nomor, $pesan)
+{
+
+	$link  =  "https://console.wablas.com/api/send-message";
+	$data = [
+		'phone' => $nomor,
+		'message' => $pesan,
+	];
+
+
+	$curl = curl_init();
+	$token =  "Uao24eSEkflj69FjrwurbaOs1StMfDmTEXdFNFaWi3ZHK8f5KY2VkpXgzCVEpMbA";
+
+	curl_setopt(
+		$curl,
+		CURLOPT_HTTPHEADER,
+		array(
+			"Authorization: $token",
+		)
+	);
+	curl_setopt($curl, CURLOPT_URL, $link);
+	curl_setopt($curl, CURLOPT_CUSTOMREQUEST, "POST");
+	curl_setopt($curl, CURLOPT_RETURNTRANSFER, true);
+	curl_setopt($curl, CURLOPT_POSTFIELDS, http_build_query($data));
+	curl_setopt($curl, CURLOPT_SSL_VERIFYHOST, 0);
+	curl_setopt($curl, CURLOPT_SSL_VERIFYPEER, 0);
+	$result = curl_exec($curl);
+	curl_close($curl);
+	return $result;
+}
+
 	// function check_active($isActive) {
 	// 	$ci = get_instance();
 

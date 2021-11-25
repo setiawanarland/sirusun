@@ -1,5 +1,9 @@
 $( document ).ready(function() {
 
+  $('#create_excel').click(function() {
+    console.log($('#report_table').html());
+  }); 
+
   // datepicker
   var today = new Date();
   var mm = today.getMonth() + 1; //Month starts from 0
@@ -39,58 +43,6 @@ $( document ).ready(function() {
   $(function () {
     $('[data-toggle="tooltip"]').tooltip();
   });
-
-
-  
-  console.log($('.tahun-pendapatan').data('tahun'));
-  
-//   // Morris bar chart
-//   Morris.Bar({
-//     element: 'chart1',
-//     data: [{
-//         y: '2006',
-//         a: 100,
-//         b: 90
-//     }, {
-//         y: '2007',
-//         a: 75,
-//         b: 65
-//     }, {
-//         y: '2008',
-//         a: 50,
-//         b: 40
-//     }, {
-//         y: '2009',
-//         a: 75,
-//         b: 65
-//     }, {
-//         y: '2010',
-//         a: 50,
-//         b: 40
-//     }, {
-//         y: '2011',
-//         a: 75,
-//         b: 65
-//     }, {
-//         y: '2012',
-//         a: 100,
-//         b: 90
-//     }, {
-//         y: '2013',
-//         a: 10,
-//         b: 20
-//     }],
-//     xkey: 'y',
-//     ykeys: ['a', 'b'],
-//     labels: ['A', 'B'],
-//     barColors: ['#343957', '#5873FE'],
-//     hideHover: 'auto',
-//     gridLineColor: '#eef0f2',
-//     resize: true
-// });
-
-
-
 
   // sweetalert logged in
   var logged = $('.logged').data('logged');
@@ -402,6 +354,21 @@ $('#search-daftarpendapatan').on('click', function() {
   $('#preloader').fadeIn(500);
 
   window.location = 'http://localhost/sirusun/main/pendapatan/' + rusunId + '/' + bulan + '/' + tahun;
+
+});
+
+// get laporan tahunan by rusun
+$('#search-laporan').on('click', function() {
+  // console.log($(this).val());
+
+  var rusunId = $('#list-rusun-laporan').val();
+  var tahun = $('#yearpicker').val();
+    
+  // loading
+  $('#main-wrapper').removeClass('show');
+  $('#preloader').fadeIn(500);
+
+  window.location = 'http://localhost/sirusun/main/laporan/' + rusunId + '/' + tahun;
 
 });
 
