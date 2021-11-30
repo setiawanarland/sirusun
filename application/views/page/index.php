@@ -64,6 +64,7 @@
         <div class="container">
           <div class="row">
             <div class="intro-text">
+              <img src="<?= base_url('assets/assets-page/'); ?>img/jpt.png" alt="" width="30%" class="figure-img img-fluid rounded mx-auto d-block logo">
               <h1>RUMAH SUSUN JENEPONTO</h1>
               <p>DISPERKIMTAN KAB. JENEPONTO</p>
             </div>
